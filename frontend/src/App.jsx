@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import UserGrid from "./components/UserGrid";
 import { useState } from "react";
 
-export const BASE_URL = "http://localhost:5000/api";
+export const BASE_URL = "https://python-react-fullstack.onrender.com/api";
 const App = () => {
   const [users, setUsers] = useState([]);
   return (
