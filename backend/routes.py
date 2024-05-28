@@ -24,10 +24,10 @@ def create_friend():
     try:
         data = request.json
 
-        required_fileds = ["name", "role", "description", "gender"]
+        required_fields = ["name", "role", "description", "gender"]
 
-        for field in required_fileds:
-            if field not in data:
+        for field in required_fields:
+            if not data.get(field) or field not in data:
                 return jsonify({"error": f"Field {field} is required"}), 400
 
         name = data.get("name")
@@ -46,7 +46,7 @@ def create_friend():
         db.session.add(new_friend)
         db.session.commit()
 
-        return jsonify({"message" : "Friend created successfully"}), 201
+        return jsonify(new_friend.to_json()), 201
     
     except Exception as e:
         db.session.rollback()
@@ -66,7 +66,7 @@ def delete_friend(friend_id):
         db.session.delete(friend)
         db.session.commit()
 
-        return jsonify({"message" : "Friend deleted successfully"}), 200
+        return jsonify(friend.to_json()), 200
     
 
     except Exception as e:
@@ -88,7 +88,7 @@ def update_friend(friend_id):
             
         db.session.commit()
 
-        return jsonify({"message" : "Friend updated successfully"}, friend.to_json()), 200
+        return jsonify( friend.to_json()), 200
     
 
     except Exception as e:
